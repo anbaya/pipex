@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-char **cmds_split(char **av)
+char **cmds_split(char *env, char **av)
 {
     int i;
     int j;
@@ -9,11 +9,11 @@ char **cmds_split(char **av)
 
     i = 0;
     j = 1;
-    cmds = malloc(sizeof(char **) * cmd_counter(av));
+    cmds = malloc(sizeof(char **) * cmd_counter(env, av));
     cmds[0] = av[0];
     while(av[++i])
     {
-        while (av[i] && !is_cmd(av[i]))
+        while (av[i] && !is_it_cmd(env, av[i]))
         {
             tmp = ft_strjoin(cmds[j], av[i]);
             free (cmds[j]);
@@ -26,13 +26,15 @@ char **cmds_split(char **av)
             cmds[j] = ft_strdup(av[i]);
         j++;
     }
+	return (cmds);
 }
 
-char **args_to_cmds(char **argv)
+char **args_to_cmds(char *env, char **argv)
 {
 	int		i;
 	char	*tmp;
 	char	*str;
+	char 	**cmds;
 	char	**args;
 
 	if (!argv[0] || !argv[0][0])
@@ -40,9 +42,8 @@ char **args_to_cmds(char **argv)
 		write(2, "Error\n", 7);
 		return (NULL);
 	}
-	i = 0;
-	str = ftt_strdup(argv[i]);
-	i++;
+	i = 1;
+	str = ft_strdup(argv[0]);
 	while (argv[i])
 	{
 		tmp = ftt_strjoin(str, argv[i]);
@@ -53,6 +54,6 @@ char **args_to_cmds(char **argv)
 		i++;
 	}
 	args = ft_split(str, ' ');
-	free(str);
-	return (args);
+	cmds = cmds_split(env, args);
+	return (free(str), free(args), cmds);
 }
