@@ -12,11 +12,10 @@ int execute(char *env, char *cd)
     while (paths[i])
     {
         full_cmd = ft_strjoin(ft_strjoin(paths[i], "/"), cmd[0]);
-        printf("%s\n", full_cmd);
         if (access(full_cmd, X_OK) == 0 || ft_strchr(cd, '/'))
         {
             if (ft_strchr(cd, '/'))
-                full_cmd = cd;
+                full_cmd = get_path(cd);
             execve(full_cmd, cmd, NULL);
             write (2, "Error:\nexecve error\n", 20);
             exit (1);
@@ -34,10 +33,7 @@ int piping1(t_pipe *pipex, char **av)
     close (pipex->fd_out);
     close(pipex->lbiba[0]);
     if (!execute(pipex->env, av[2]))
-    {
-        write (2, "Error:\ncmd1 is not executable !!\n", 33);
-        return (2);
-    }
+        return (write (2, "Error:\ncmd2 is not executable !!\n", 33), 2);
     return (0);
 }
 int piping2(t_pipe *pipex, char **av)
@@ -49,10 +45,7 @@ int piping2(t_pipe *pipex, char **av)
     close (pipex->lbiba[1]);
     close (pipex->lbiba[0]);
     if (!execute(pipex->env, av[3]))
-    {
-        write (2, "Error:\ncmd2 is not executable !!\n", 33);
-        return (2);
-    }
+        return (write (2, "Error:\ncmd1 is not executable !!\n", 33), 2);
     return (0);
 }
 int starting (t_pipe *pipex, int ac, char **av, char **envp)
@@ -71,10 +64,10 @@ int starting (t_pipe *pipex, int ac, char **av, char **envp)
         write (2, "Error:\nError while Opning files\n", 33);
         return (1);
     }
-    if (ft_strchr(av[2], '/'))
-        pipex->env = av[2];
-    if (ft_strchr(av[3], '/'))
-        pipex->env = av[3];
+    // if (ft_strchr(av[2], '/'))
+    //     pipex->env = get_path(av[2]);
+    // if (ft_strchr(av[3], '/'))
+    //     pipex->env = get_path(av[3]);
     pipe (pipex->lbiba);
     return (0);
 }
@@ -94,7 +87,11 @@ int main(int ac, char **av, char **envp)
         piping2(pipex, av);
     close (pipex->lbiba[0]);
     close (pipex->lbiba[1]);
-    waitpid(pipex->pid1, NULL, 0);
-    waitpid(pipex->pid2, NULL, 0);
+    waitpid(pipex->pid1, &pipex->c1_status, 0);
+    if (pipex->c1_status != 0)
+        exit (1);
+    waitpid(pipex->pid2, &pipex->c2_status, 0);
+    if (pipex->c2_status != 0)
+        exit (1);
     return(0);
 }

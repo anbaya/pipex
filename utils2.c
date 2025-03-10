@@ -85,7 +85,7 @@ char	*ftt_strjoin(char const *s1, char const *s2)
 	while (s1[j])
 		str[i++] = s1[j++];
 	j = 0;
-	str[i++] = ' ';
+	str[i++] = '/';
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';

@@ -38,7 +38,25 @@ char *get_path(char *av)
 
     i = 0;
     splited_av = ft_split(av, '/');
-    tmp = sub_arr(splited_av, arrlen(splited_av) - 1);
+    tmp = sub_arr(splited_av, (arrlen(splited_av) - 1));
     path = to_str(tmp);
     free (tmp);
+    return (path);
+}
+char *get_cmd(char *arg, char *env)
+{
+    int i;
+    char **arr;
+    char *cmd;
+
+    i = 0;
+    arr = ft_split(arg, '/');
+    while (arr[i])
+    {
+        if (is_it_cmd(env, arr[i]))
+        {
+            cmd = ft_strdup(arr[i]);
+            return(cmd);
+        }
+    }
 }

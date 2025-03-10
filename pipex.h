@@ -34,5 +34,8 @@ int     is_it_cmd(char *env, char *cd);
 char    **sub_arr(char **arr, int n);
 char    *get_env(char **av);
 char    *get_path(char *av);
+char    *to_str(char **av);
+int     arrlen(char **av);
+char    *get_cmd(char *arg, char *env);
 
 # endif
