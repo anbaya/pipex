@@ -15,7 +15,7 @@ int execute(char *env, char *cd)
         if (access(full_cmd, X_OK) == 0 || ft_strchr(cd, '/'))
         {
             if (ft_strchr(cd, '/'))
-                full_cmd = get_path(cd);
+                full_cmd = cd;
             execve(full_cmd, cmd, NULL);
             write (2, "Error:\nexecve error\n", 20);
             exit (1);
@@ -64,10 +64,6 @@ int starting (t_pipe *pipex, int ac, char **av, char **envp)
         write (2, "Error:\nError while Opning files\n", 33);
         return (1);
     }
-    // if (ft_strchr(av[2], '/'))
-    //     pipex->env = get_path(av[2]);
-    // if (ft_strchr(av[3], '/'))
-    //     pipex->env = get_path(av[3]);
     pipe (pipex->lbiba);
     return (0);
 }
