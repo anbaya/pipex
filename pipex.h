@@ -10,6 +10,7 @@
 typedef struct s_pipe
 {
     char *env;
+    char **paths;
     int pid1;
     int pid2;
     int c1_status;
@@ -24,6 +25,7 @@ char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strsjoin(char **strs);
 char	*ftt_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
@@ -37,5 +39,6 @@ char    *get_path(char *av);
 char    *to_str(char **av);
 int     arrlen(char **av);
 char    *get_cmd(char *arg, char *env);
+void    free_arr(char **arr);
 
 # endif

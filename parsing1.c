@@ -46,7 +46,7 @@ char **args_to_cmds(char *env, char **argv)
 	str = ft_strdup(argv[0]);
 	while (argv[i])
 	{
-		tmp = ftt_strjoin(str, argv[i]);
+		tmp = ft_strsjoin((char *[]){str, "/", argv[i], NULL});
 		free(str);
 		if (!tmp || !argv[i][0])
 			return (NULL);
