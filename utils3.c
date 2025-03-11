@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anbaya <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/11 11:15:31 by anbaya            #+#    #+#             */
+/*   Updated: 2025/03/11 11:16:02 by anbaya           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int arrlen(char **av)
+int	arrlen(char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (av[i])
@@ -10,11 +22,11 @@ int arrlen(char **av)
 	return (i);
 }
 
-char *to_str(char **av)
+char	*to_str(char **av)
 {
-	int i;
-	char *tmp;
-	char *str;
+	int		i;
+	char	*tmp;
+	char	*str;
 
 	i = 1;
 	str = NULL;
@@ -31,11 +43,12 @@ char *to_str(char **av)
 	}
 	return (str);
 }
-char *get_path(char *av)
+
+char	*get_path(char *av)
 {
-	char **splited_av;
-	char **tmp;
-	char *path;
+	char	**splited_av;
+	char	**tmp;
+	char	*path;
 
 	tmp = NULL;
 	path = NULL;
@@ -46,11 +59,12 @@ char *get_path(char *av)
 	free(tmp);
 	return (path);
 }
-char *get_cmd(char *arg, char *env)
+
+char	*get_cmd(char *arg, char *env)
 {
-	int i;
-	char **arr;
-	char *cmd;
+	int		i;
+	char	**arr;
+	char	*cmd;
 
 	i = 0;
 	arr = ft_split(arg, '/');

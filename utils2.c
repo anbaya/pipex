@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anbaya <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/11 11:19:08 by anbaya            #+#    #+#             */
+/*   Updated: 2025/03/11 11:19:11 by anbaya           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-char *get_env(char **av)
+char	*get_env(char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (av[i])
@@ -14,10 +26,10 @@ char *get_env(char **av)
 	return (0);
 }
 
-char **sub_arr(char **arr, int n)
+char	**sub_arr(char **arr, int n)
 {
-	int i;
-	char **arg;
+	int		i;
+	char	**arg;
 
 	i = 0;
 	arg = malloc(sizeof(char *) * (n + 1));
@@ -29,12 +41,12 @@ char **sub_arr(char **arr, int n)
 	return (arg);
 }
 
-int is_it_cmd(char *env, char *cd)
+int	is_it_cmd(char *env, char *cd)
 {
-	char **paths;
-	char *full_cmd;
-	char **cmd;
-	int i;
+	char	**paths;
+	char	*full_cmd;
+	char	**cmd;
+	int		i;
 
 	paths = ft_split(env, ':');
 	cmd = ft_split(cd, ' ');
@@ -49,10 +61,10 @@ int is_it_cmd(char *env, char *cd)
 	return (0);
 }
 
-int cmd_counter(char *env, char **av)
+int	cmd_counter(char *env, char **av)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
